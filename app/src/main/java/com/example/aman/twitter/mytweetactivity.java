@@ -35,10 +35,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class mytweetactivity extends AppCompatActivity {
+public class mytweetactivity extends AppCompatActivity implements OnTweetClickedListener {
     ListView listView;
     TimeLine timeLineAdapter;
    public static long id;
+    FixedTweetTimeline fixedTweetTimeline;
     List<Tweet> hometimeline;
 
     @Override
@@ -60,12 +61,14 @@ public class mytweetactivity extends AppCompatActivity {
         String header = authSigning.getAuthorizationHeader("GET", "https://api.twitter.com/1.1/statuses/home_timeline.json",params);
         Log.i("Header",header);
         ApiInterface apiInterface = RetrofitConnection.getInstance(this).create(ApiInterface.class);
-        Call<List<Tweet>> call = apiInterface.getTweets(header);
+        Call<List<Tweet>> call = apiInterface.getTweets(String.valueOf(id),header);
     call.enqueue(new Callback<List<Tweet>>() {
         @Override
         public void onResponse(Call<List<Tweet>> call, Response<List<Tweet>> response) {
            if(response.isSuccessful()) {
                hometimeline = response.body();
+               Log.i("homeTimeline",hometimeline.size()+"");
+                settingFixedTimeline(hometimeline);
            } else {
                Log.e("Error Code",String.valueOf(response.code()));
                Log.e("Error Code",response.errorBody().toString());
@@ -79,16 +82,31 @@ public class mytweetactivity extends AppCompatActivity {
         }
     });
 
-        FixedTweetTimeline fixedTweetTimeline = new FixedTweetTimeline.Builder().setTweets(hometimeline).build();
-                final UserTimeline userTimeline = new UserTimeline.Builder()
+
+
+      //  FixedTweetTimeline fixedTweetTimeline = new FixedTweetTimeline.Builder().setTweets(hometimeline).build();
+            /*    final UserTimeline userTimeline = new UserTimeline.Builder()
                 .userId(id)
-                .build();
-        final TweetTimelineListAdapter adapter = new TweetTimelineListAdapter.Builder(this)
+                .build();*/
+     /*   final TweetTimelineListAdapter adapter = new TweetTimelineListAdapter.Builder(this)
                 .setTimeline(userTimeline)
-                .build();
-        timeLineAdapter = new TimeLine(this,fixedTweetTimeline);
+                .build();*/
+        /*timeLineAdapter = new TimeLine(this,fixedTweetTimeline);
         listView = (ListView)findViewById(R.id.tweetlist);
-       listView.setAdapter(adapter);
+       listView.setAdapter(timeLineAdapter);*/
+      //  timeLineAdapter.notifyDataSetChanged();
         //setListAdapter(adapter);
     }
+    void settingFixedTimeline(List<Tweet> hometimeline) {
+        fixedTweetTimeline = new FixedTweetTimeline.Builder().setTweets(hometimeline).build();
+        timeLineAdapter = new TimeLine(mytweetactivity.this,fixedTweetTimeline,this);
+        listView = (ListView)findViewById(R.id.tweetlist);
+        listView.setAdapter(timeLineAdapter);
+    }
+
+    @Override
+    public void onTweetClicked(int pos, Tweet tweet) {
+        Toast.makeText(this,"Position clicked"+tweet.idStr,Toast.LENGTH_SHORT).show();
+    }
+
 }

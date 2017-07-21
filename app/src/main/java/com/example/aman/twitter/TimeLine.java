@@ -22,8 +22,12 @@ public class TimeLine extends TweetTimelineListAdapter {
      * @param timeline a Timeline&lt;Tweet&gt; providing access to Tweet data items.
      * @throws IllegalArgumentException if timeline is null
      */
-    public TimeLine(Context context, Timeline<Tweet> timeline) {
+    Context context;
+    OnTweetClickedListener onTweetClickedListener;
+    public TimeLine(Context context, Timeline<Tweet> timeline,OnTweetClickedListener onTweetClickedListener) {
         super(context, timeline);
+        this.context = context;
+        this.onTweetClickedListener = onTweetClickedListener;
     }
 
 
@@ -36,7 +40,11 @@ public class TimeLine extends TweetTimelineListAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Tweet tweet = getItem(pos);
+                if(onTweetClickedListener !=null) {
+                 onTweetClickedListener.onTweetClicked(pos,getItem(pos));
+                }
+
+
 //                onTweetClicked(pos, tweet);
             }
         });
@@ -44,7 +52,8 @@ public class TimeLine extends TweetTimelineListAdapter {
         return view;
     }
 
-    public interface OnTweetClickedListener{
-        void onTweetClicked(int pos, Tweet tweet);
-    }
+
+}
+ interface OnTweetClickedListener{
+    void onTweetClicked(int pos, Tweet tweet);
 }

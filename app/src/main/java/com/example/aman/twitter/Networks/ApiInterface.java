@@ -10,6 +10,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Query;
 
 /**
  * Created by Aman on 20-07-2017.
@@ -17,5 +18,5 @@ import retrofit2.http.Header;
 
 public interface ApiInterface {
  @GET("statuses/home_timeline.json")
- Call<List<Tweet>> getTweets(@Header("Authorization")String header);
+ Call<List<Tweet>> getTweets(@Query("id") String id,@Header("Authorization")String header);
 }
