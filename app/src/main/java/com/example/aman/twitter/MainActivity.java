@@ -1,6 +1,5 @@
 package com.example.aman.twitter;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,23 +7,13 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.twitter.sdk.android.core.Callback;
-import com.twitter.sdk.android.core.OAuthSigning;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.Twitter;
-import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterAuthToken;
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
-import java.util.Map;
-
-import javax.net.ssl.HttpsURLConnection;
 
 public class MainActivity extends AppCompatActivity {
 TwitterSession session;
@@ -47,7 +36,18 @@ TwitterSession session;
                 Log.i("Secret is", secret);
                 id = session.getUserId();
                 Log.i("ID IS", id+"");
-                Intent i = new Intent(MainActivity.this,mytweetactivity.class);
+
+
+              //  getSupportFragmentManager().beginTransaction().replace(R.id., mytweetFragment).commit();
+
+/*
+CourseDetailFragment courseDetailFragment = new CourseDetailFragment();
+            Bundle b = new Bundle();
+            b.putSerializable("course", c);
+            courseDetailFragment.setArguments(b);
+
+ */
+               Intent i = new Intent(MainActivity.this,mytweetactivity.class);
                 i.putExtra("User_id",id);
                 startActivity(i);
             }
