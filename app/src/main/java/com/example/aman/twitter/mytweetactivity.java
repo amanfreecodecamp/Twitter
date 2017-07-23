@@ -48,15 +48,16 @@ public class mytweetactivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //  Twitter.initialize(this);
-        setContentView(R.layout.activity_mytweetactivity);
         Intent i = getIntent();
         id = i.getLongExtra("User_id", -1);
+        setContentView(R.layout.activity_mytweetactivity);
+
         Log.i("User_id", id + "");
-        MytweetFragment mytweetFragment = new MytweetFragment();
+       /* MytweetFragment mytweetFragment = new MytweetFragment();
         Bundle b = new Bundle();
-        b.putLong("User_id",id);
+        b.putLong("Session_id",id);
         mytweetFragment.setArguments(b);
-        getFragmentManager().beginTransaction().add(R.id.containerLayout,mytweetFragment).commit();
+        getFragmentManager().beginTransaction().add(R.id.containerLayout,mytweetFragment).commit();*/
       /*  TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
         TwitterAuthConfig authConfig = TwitterCore.getInstance().getAuthConfig();
         TwitterAuthToken authToken = session.getAuthToken();

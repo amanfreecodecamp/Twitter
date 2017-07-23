@@ -46,19 +46,23 @@ public class MytweetFragment extends Fragment implements OnTweetClickedListener 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, Bundle savedInstanceState) {
         context = this.getActivity();
+        long id = mytweetactivity.id;   // Using Bundle is creating Error
+      //  long id = this.getArguments().getLong("Session_id",-1);
         View v = inflater.inflate(R.layout.fragments_hometimeline, container, false);
         listView = (ListView) v.findViewById(R.id.tweetlist);
-        TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
-        TwitterAuthConfig authConfig = TwitterCore.getInstance().getAuthConfig();
-        TwitterAuthToken authToken = session.getAuthToken();
-        OAuthSigning authSigning = new OAuthSigning(authConfig, authToken);
-        HashMap<String, String> params = new HashMap<>();
-        params.put("id", String.valueOf(session.getUserId()));
-        //   Map<String, String> authHeaders = authSigning.getOAuthEchoHeadersForVerifyCredentials();
-        String header = authSigning.getAuthorizationHeader("GET", "https://api.twitter.com/1.1/statuses/home_timeline.json", params);
+        HeaderCreation headerCreation = new HeaderCreation("https://api.twitter.com/1.1/statuses/home_timeline.json");
+        String header = headerCreation.getHeader();
+//        TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
+//        TwitterAuthConfig authConfig = TwitterCore.getInstance().getAuthConfig();
+//        TwitterAuthToken authToken = session.getAuthToken();
+//        OAuthSigning authSigning = new OAuthSigning(authConfig, authToken);
+//        HashMap<String, String> params = new HashMap<>();
+//        params.put("id", String.valueOf(session.getUserId()));
+//        //   Map<String, String> authHeaders = authSigning.getOAuthEchoHeadersForVerifyCredentials();
+//      String header = authSigning.getAuthorizationHeader("GET", "https://api.twitter.com/1.1/statuses/home_timeline.json", params);
         Log.i("Header", header);
         ApiInterface apiInterface = RetrofitConnection.getInstance(context).create(ApiInterface.class);
-        Call<List<Tweet>> call = apiInterface.getTweets(String.valueOf(session.getUserId()), header);
+        Call<List<Tweet>> call = apiInterface.getTweets(String.valueOf(id), header,50);
         call.enqueue(new Callback<List<Tweet>>() {
             @Override
             public void onResponse(Call<List<Tweet>> call, Response<List<Tweet>> response) {

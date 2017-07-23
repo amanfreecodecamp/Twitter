@@ -16,7 +16,6 @@ import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 public class MainActivity extends AppCompatActivity {
-TwitterSession session;
     TwitterLoginButton loginButton;
     long id;
     @Override
