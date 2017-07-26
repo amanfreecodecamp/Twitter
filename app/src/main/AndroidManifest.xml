@@ -15,10 +15,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".mytweetactivity" >
-
-        </activity>
-        <activity android:name=".Test">
+        <activity android:name=".mytweetactivity"   android:theme="@style/AppTheme.NoActionBar" >
 
         </activity>
     </application>

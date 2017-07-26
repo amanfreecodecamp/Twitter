@@ -1,31 +1,20 @@
 package com.example.aman.twitter;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Fragment;
 import android.os.Bundle;
-import android.widget.ListView;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import com.twitter.sdk.android.core.Twitter;
-import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter;
-import com.twitter.sdk.android.tweetui.UserTimeline;
+/**
+ * Created by Aman on 26-07-2017.
+ */
 
-public class Test extends AppCompatActivity {
-
+public class Test extends Fragment {
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Twitter.initialize(this);
-        setContentView(R.layout.activity_test);
-
-        ListView listView = (ListView) findViewById(android.R.id.list);
-
-        final UserTimeline userTimeline = new UserTimeline.Builder()
-                .userId(539487832448843776L)
-                .build();
-        final TweetTimelineListAdapter adapter = new TweetTimelineListAdapter.Builder(this)
-                .setTimeline(userTimeline)
-                .build();
-//        timeLineAdapter = new TimeLine(this,userTimeline);
-
-        listView.setAdapter(adapter);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 }

@@ -14,18 +14,22 @@ import java.util.HashMap;
 
 public class HeaderCreation {
     String url;
-    HeaderCreation(String url) {
-       this.url = url;
+    HashMap<String, String> map;
+
+    HeaderCreation(String url, HashMap<String, String> map) {
+        this.url = url;
+        this.map = map;
     }
+
     public String getHeader() {
         TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
         TwitterAuthConfig authConfig = TwitterCore.getInstance().getAuthConfig();
         TwitterAuthToken authToken = session.getAuthToken();
         OAuthSigning authSigning = new OAuthSigning(authConfig, authToken);
-        HashMap<String, String> params = new HashMap<>();
-        params.put("id", String.valueOf(session.getUserId()));
+        // HashMap<String, String> params = new HashMap<>();
+//        params.put("id", String.valueOf(session.getUserId()));
         //   Map<String, String> authHeaders = authSigning.getOAuthEchoHeadersForVerifyCredentials();
-        String header = authSigning.getAuthorizationHeader("GET", url, params);
+        String header = authSigning.getAuthorizationHeader("GET", url, map);
         return header;
     }
 }
