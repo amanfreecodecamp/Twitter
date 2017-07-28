@@ -8,6 +8,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -16,9 +17,12 @@ import retrofit2.http.Query;
 
 public interface ApiInterface {
  @GET("statuses/home_timeline.json")
- Call<List<Tweet>> getTweets(@Header("Authorization")String header, @Query("count")int count); // the json is not creating due to this count. Link is https://api.twitter.com/1.1/statuses/home_timeline.json?count=50
+ Call<List<Tweet>> getTweets(@Header("Authorization")String header, @Query("count")int count);
 
 @GET("trends/place.json")
 Call<ArrayList<Trend>> getTrends(@Header("Authorization")String header, @Query("id") String id);
+
+@POST("statuses/update.json")
+ Call<Tweet> getTweet(@Header("Authorization")String header,@Query("status")String status);
 
 }

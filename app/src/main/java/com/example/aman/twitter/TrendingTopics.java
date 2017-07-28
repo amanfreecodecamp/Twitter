@@ -82,8 +82,7 @@ public class TrendingTopics extends android.support.v4.app.Fragment implements S
         map.put("id", "23424848"); //Ideally you should use yahoo earth api to get the WOEID of Your location
         HeaderCreation headerCreation = new HeaderCreation("https://api.twitter.com/1.1/trends/place.json", map);
         String header = headerCreation.getHeader();
-
-        ApiInterface apiInterface = RetrofitConnection.getInstance(context).create(ApiInterface.class);
+        ApiInterface apiInterface = RetrofitConnection.getInstance();
         Call<ArrayList<Trend>> call = apiInterface.getTrends(header, "23424848"); //Is this Correct? this is link to get the TrendObject name  https://dev.twitter.com/rest/reference/get/trends/place
         call.enqueue(new Callback<ArrayList<Trend>>() {
             @Override

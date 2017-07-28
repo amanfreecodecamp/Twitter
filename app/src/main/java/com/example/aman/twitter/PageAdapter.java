@@ -33,17 +33,13 @@ public class PageAdapter extends FragmentPagerAdapter {
     //set title
     @Override
     public CharSequence getPageTitle(int position) {
-        String title= fragments.get(position).toString();
-        String newTitle = "";
-        for(int i = 0; i < title.length();i++) {
-            if(title.charAt(i) == '{') {
-                break;
-            } else {
-                newTitle = newTitle + title.charAt(i);
-            }
+        switch (position) {
+            case 0:
+                return "SECTION 1";
+            case 1:
+                return "SECTION 2";
 
         }
-        Log.i("Title",newTitle);
-        return newTitle.toString();
+        return null;
     }
 }

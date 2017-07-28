@@ -20,19 +20,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitConnection {
 
-    static Retrofit INSTANCE;
+    //  static Retrofit INSTANCE;
+    static ApiInterface apiInterface;
 
-
-    public static Retrofit getInstance(Context context) {
-        if(INSTANCE== null){
-            INSTANCE = new Retrofit.Builder()
+    public static ApiInterface getInstance() {
+        if (apiInterface == null) {
+            Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("https://api.twitter.com/1.1/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
 
-            // ApiInterface apiInterface =  retrofit.create(ApiInterface.class);
+            apiInterface = retrofit.create(ApiInterface.class);
         }
-        return INSTANCE;
+        return apiInterface;
     }
 }

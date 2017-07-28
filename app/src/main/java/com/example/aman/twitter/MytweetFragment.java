@@ -99,7 +99,7 @@ public class MytweetFragment extends android.support.v4.app.Fragment implements 
         HeaderCreation headerCreation = new HeaderCreation("https://api.twitter.com/1.1/statuses/home_timeline.json", map);
         String header = headerCreation.getHeader();
         Log.i("Header", header);
-        ApiInterface apiInterface = RetrofitConnection.getInstance(context).create(ApiInterface.class);
+        ApiInterface apiInterface = RetrofitConnection.getInstance();
         Call<List<Tweet>> call = apiInterface.getTweets(header, 25);
         call.enqueue(new Callback<List<Tweet>>() {
             @Override

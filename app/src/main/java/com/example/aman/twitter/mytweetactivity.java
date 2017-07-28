@@ -1,6 +1,7 @@
 package com.example.aman.twitter;
 
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -15,6 +16,7 @@ import android.view.View;
 import com.twitter.sdk.android.core.TwitterAuthToken;
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 public class mytweetactivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener,ViewPager.OnPageChangeListener{
     ViewPager vp;
@@ -50,8 +52,12 @@ public class mytweetactivity extends AppCompatActivity implements TabLayout.OnTa
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent i = new Intent(mytweetactivity.this,PostStatus.class);
+                startActivityForResult(i,1);
+             /*   Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
+              /*  TweetComposer.Builder tweet=new TweetComposer.Builder(mytweetactivity.this);
+                tweet.show();*/
             }
         });
         //VIEWPAGER
@@ -61,15 +67,15 @@ public class mytweetactivity extends AppCompatActivity implements TabLayout.OnTa
         tabLayout= (TabLayout) findViewById(R.id.tabs);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setupWithViewPager(vp);
+      //  tabLayout.getTabAt(0).setIcon().setText("HomeTimeline");
         tabLayout.setOnTabSelectedListener(this);
     }
     private void addPages()
     {
         PageAdapter pagerAdapter=new PageAdapter(this.getSupportFragmentManager());
         pagerAdapter.addFragment(new MytweetFragment());
-     //   pagerAdapter.addFragment(new Test());
         pagerAdapter.addFragment(new TrendingTopics());
-       // pagerAdapter.addFragment(new DocumentaryFragment());
+
         //SET ADAPTER TO VP
         vp.setAdapter(pagerAdapter);
     }
@@ -103,7 +109,15 @@ public class mytweetactivity extends AppCompatActivity implements TabLayout.OnTa
         mytweetFragment.setArguments(b);
         getFragmentManager().beginTransaction().add(R.id.containerLayout,mytweetFragment).commit();*/
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+             Log.i("Tweeted", "Done");
+        }
     }
+}
+
 
 
 
